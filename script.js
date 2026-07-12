@@ -21,10 +21,34 @@ function renderPosts() {
         var preview = p.body.slice(0, 100);
 
         container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2";
-        container.innerHTML += "<p>" + p.date + "-" + p.author + "</p>";
+        container.innerHTML += "<p>" + p.date + " - " + p.author + "</p>";
         container.innerHTML += "<p>" + preview + "...</p>";
-        conatiner.innerHTML += "<hr>";
+        container.innerHTML += "<hr>";
     }
 }
 
-renderPosts();
+function viewPost(id) {
+    var thePost = null;
+
+    for (var i = 0; i < posts.length; i++) {
+        if (posts[i].id == id) {
+            thePost = posts[i];
+        }
+    }
+
+    document.getElementById("postTitle").innerHTML = thePost.title;
+    document.getElementById("postMeta").innerHTML = thePost.date + " - " + thePost.author;
+    document.getElementById("postBody").innerHTML = thePost.body;
+
+    document.getElementById("postList").style.display = "none";
+    document.getElementById("postView").style.display = "block";
+}
+
+document.getElementById("postList").addEventListener("click", function (event) {
+    if (event.target.tagName === "H2") {
+        var clickedId = event.target.getAttribute("data-postid");
+        showPost(clickedId);
+    }
+});
+
+renderPost();

@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Website</title>
+    <title>Inium Blogs</title>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
     <h1>Inium Blogs</h1>
+    <h2>Welcome to Inium blogs</h2> <!-- TO DO: there should be a user account, but we'll leave that for now -->
+
     <div id="postList"></div>
+
+    <div id="postView" style="display:none;">
+        <button id="backButton">Back to all posts</button>
+        <h2 id="postTitle"></h2>
+        <p id="postMeta"></p> <!-- metadata about the post. Holds the date and the author -->
+        <p id="postBody"></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
