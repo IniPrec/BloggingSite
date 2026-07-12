@@ -9,6 +9,9 @@ function createPost(title, body, author) {
     return post;
 }
 
+var posts = [];
+posts.push(createPost("My First Post", "This is the body of my first post, just to test that everything works.", "Precious"));
+
 function renderPosts() {
     var container = document.getElementById("postList");
     container.innerHTML = "";
@@ -18,7 +21,7 @@ function renderPosts() {
         var preview = p.body.slice(0, 100);
 
         container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2";
-        container.inneHTML += "<p>" + p.date + "-" + p.author + "</p>";
+        container.innerHTML += "<p>" + p.date + "-" + p.author + "</p>";
         container.innerHTML += "<p>" + preview + "...</p>";
         conatiner.innerHTML += "<hr>";
     }
