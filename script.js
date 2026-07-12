@@ -74,6 +74,11 @@ document.getElementById("submitPostButton").addEventListener("click", function (
     var author = document.getElementById("authorInput").value;
     var body = document.getElementById("bodyInput").value;
 
+    if (title === "" || author === "" || body === "") {
+        alert("Please fill in all fields before publishing.")
+        return;
+    }
+
     posts.push(createPost(title, body, author));
     savePosts();
 
