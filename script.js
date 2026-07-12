@@ -47,8 +47,35 @@ function viewPost(id) {
 document.getElementById("postList").addEventListener("click", function (event) {
     if (event.target.tagName === "H2") {
         var clickedId = event.target.getAttribute("data-postid");
-        showPost(clickedId);
+        viewPost(clickedId);
     }
 });
 
-renderPost();
+document.getElementById("backButton").addEventListener("click", function () {
+    document.getElementById("postList").style.display = "block";
+    document.getElementById("postView").style.display = "none";
+});
+
+document.getElementById("addPostButton").addEventListener("click", function () {
+    document.getElementById("postList").style.display = "none";
+    document.getElementById("addpostView").style.display = "block";
+});
+
+document.getElementById("submitPostButton").addEventListener("click", function () {
+    var title = document.getElementById("titleInput").value;
+    var body = document.getElementById("bodyInput").value;
+    var authpr = document.getElementById("authorInput").value;
+
+    post.push(createPost(title, body, author));
+
+    document.getElementById("titleInput").value = "";
+    document.getElementById("bodyInput").value = "";
+    document.getElementById("authorInput").value = "";
+
+    renderPosts();
+
+    document.getElementById("addPostView").stlye.display = "none";
+    document.getElementById("postList").style.display = "block";
+});
+
+renderPosts();

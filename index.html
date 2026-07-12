@@ -10,6 +10,8 @@
     <h1>Inium Blogs</h1>
     <h2>Welcome to Inium blogs</h2> <!-- TO DO: there should be a user account, but we'll leave that for now -->
 
+    <button id="addPostButton">Add a New Blog</button>
+
     <div id="postList"></div>
 
     <div id="postView" style="display:none;">
@@ -19,6 +21,17 @@
         <p id="postBody"></p>
     </div>
 
+    <div id="addPostView" style="display:none;">
+        <h2>Add a new Blog</h2>
+
+        <label for="titleInput">Title</label> <br />
+        <input type="text" id="titleInput"/> <br /><br />
+
+        <label for="bodyInput">Body</label> <br />
+        <textarea id="bodyInput" rows="6" cols="40"></textarea> <br /><br />
+
+        <button id="submitPostButton">Publish Blog</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
