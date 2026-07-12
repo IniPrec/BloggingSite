@@ -63,18 +63,18 @@ document.getElementById("addPostButton").addEventListener("click", function () {
 
 document.getElementById("submitPostButton").addEventListener("click", function () {
     var title = document.getElementById("titleInput").value;
-    var body = document.getElementById("bodyInput").value;
     var author = document.getElementById("authorInput").value;
+    var body = document.getElementById("bodyInput").value;
 
     post.push(createPost(title, body, author));
 
     document.getElementById("titleInput").value = "";
-    document.getElementById("bodyInput").value = "";
     document.getElementById("authorInput").value = "";
+    document.getElementById("bodyInput").value = "";
 
     renderPosts();
 
-    document.getElementById("addPostView").stlye.display = "none";
+    document.getElementById("addPostView").style.display = "none";
     document.getElementById("postList").style.display = "block";
 });
 
