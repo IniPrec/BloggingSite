@@ -22,12 +22,19 @@ function loadPosts() {
 
 var posts = [];
 
-function renderPosts() {
+function renderPosts(keyword) {
     var container = document.getElementById("postList");
     container.innerHTML = "";
 
     for (var i = 0; i < posts.length; i++) {
         var p = posts[i];
+
+        if (keyword) {
+            var text = (p.title + " " + p.body + " " + p.author).toLowerCase();
+            if (text.indexOf(keyword.toLowerCase()) === -1) {
+                continue;
+            }
+        }
         var preview = p.body.slice(0, 100);
 
         container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2>";
@@ -55,6 +62,10 @@ function viewPost(id) {
     document.getElementById("addPostButton").style.display = "none";
 }
 
+document.getElementById("searchInput").addEventListener("input", function () {
+    renderPosts(this.value);
+});
+
 document.getElementById("postList").addEventListener("click", function (event) {
     if (event.target.tagName === "H2") {
         var clickedId = event.target.getAttribute("data-postid");
@@ -72,12 +83,14 @@ document.getElementById("addPostButton").addEventListener("click", function () {
     document.getElementById("postList").style.display = "none";
     document.getElementById("addPostView").style.display = "block";
     document.getElementById("addPostButton").style.display = "none";
+    document.getElementById("searchInput").style.display = "none";
 });
 
 document.getElementById("cancelAddButton").addEventListener("click", function () {
     document.getElementById("addPostView").style.display = "none";
     document.getElementById("postList").style.display = "block";
     document.getElementById("addPostButton").style.display = "block";
+    document.getElementById("searchInput").style.display = "block";
 })
 
 document.getElementById("submitPostButton").addEventListener("click", function () {
