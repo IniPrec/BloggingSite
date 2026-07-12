@@ -10,7 +10,6 @@ function createPost(title, body, author) {
 }
 
 var posts = [];
-posts.push(createPost("My First Post", "This is the body of my first post, just to test that everything works.", "Precious"));
 
 function renderPosts() {
     var container = document.getElementById("postList");
@@ -42,6 +41,7 @@ function viewPost(id) {
 
     document.getElementById("postList").style.display = "none";
     document.getElementById("postView").style.display = "block";
+    document.getElementById("addPostButton").style.display = "none";
 }
 
 document.getElementById("postList").addEventListener("click", function (event) {
@@ -54,19 +54,28 @@ document.getElementById("postList").addEventListener("click", function (event) {
 document.getElementById("backButton").addEventListener("click", function () {
     document.getElementById("postList").style.display = "block";
     document.getElementById("postView").style.display = "none";
+    document.getElementById("addPostButton").style.display = "block";
 });
 
 document.getElementById("addPostButton").addEventListener("click", function () {
     document.getElementById("postList").style.display = "none";
     document.getElementById("addPostView").style.display = "block";
+    document.getElementById("addPostButton").style.display = "none";
 });
+
+document.getElementById("cancelAddButton").addEventListener("click", function () {
+    document.getElementById("addPostView").style.display = "none";
+    document.getElementById("postList").style.display = "block";
+    document.getElementById("addPostButton").style.display = "block";
+})
 
 document.getElementById("submitPostButton").addEventListener("click", function () {
     var title = document.getElementById("titleInput").value;
     var author = document.getElementById("authorInput").value;
     var body = document.getElementById("bodyInput").value;
 
-    post.push(createPost(title, body, author));
+    posts.push(createPost(title, body, author));
+    savePosts();
 
     document.getElementById("titleInput").value = "";
     document.getElementById("authorInput").value = "";
@@ -76,6 +85,19 @@ document.getElementById("submitPostButton").addEventListener("click", function (
 
     document.getElementById("addPostView").style.display = "none";
     document.getElementById("postList").style.display = "block";
+    document.getElementById("addPostButton").style.display = "block";
 });
 
+loadPosts();
 renderPosts();
+
+function savePosts() {
+    localStorage.setItem("iniumBlogPosts", JSON.stringify(posts));
+}
+
+function loadPosts() {
+    var saved = localStorage.getItem("iniumBlogPosts");
+    if (saved !== null) {
+        posts = JSON.parse(saved);
+    }
+}
