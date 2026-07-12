@@ -9,6 +9,17 @@ function createPost(title, body, author) {
     return post;
 }
 
+function savePosts() {
+    localStorage.setItem("iniumBlogPosts", JSON.stringify(posts));
+}
+
+function loadPosts() {
+    var saved = localStorage.getItem("iniumBlogPosts");
+    if (saved !== null) {
+        posts = JSON.parse(saved);
+    }
+}
+
 var posts = [];
 
 function renderPosts() {
@@ -19,7 +30,7 @@ function renderPosts() {
         var p = posts[i];
         var preview = p.body.slice(0, 100);
 
-        container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2";
+        container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2>";
         container.innerHTML += "<p>" + p.date + " - " + p.author + "</p>";
         container.innerHTML += "<p>" + preview + "...</p>";
         container.innerHTML += "<hr>";
@@ -95,14 +106,3 @@ document.getElementById("submitPostButton").addEventListener("click", function (
 
 loadPosts();
 renderPosts();
-
-function savePosts() {
-    localStorage.setItem("iniumBlogPosts", JSON.stringify(posts));
-}
-
-function loadPosts() {
-    var saved = localStorage.getItem("iniumBlogPosts");
-    if (saved !== null) {
-        posts = JSON.parse(saved);
-    }
-}
