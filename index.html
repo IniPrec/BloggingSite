@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inium Blogs</title>
-    <link rel="stylesheet" href="style.css"/>
+    <title>Ini's Blogs</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Welcome to Inium blogs</h1> <!-- TO DO: there should be a user account, but we'll leave that for now -->
+    <header>
+        <h1>Ini's Blogs</h1>
+        <p class="subtitle">Thoughts, stories and ideas</p>
+    </header>
 
-    <button id="addPostButton">Add a New Blog</button><br /><br />
-
-    <input type="text" id="searchInput" placeholder="Search posts..."/>
+    <button id="addPostButton">Write a blog</button>
+    <input type="text" id="searchInput" placeholder="Search blogs..." />
+    <div id="searchResults" style="display:none;"></div>
 
     <div id="postList"></div>
 
     <div id="postView" style="display:none;">
-        <button id="backButton">Back to all blogs</button>
+        <button id="backButton">Back to blogs</button>
         <h2 id="postTitle"></h2>
-        <p id="postMeta"></p> <!-- metadata about the post. Holds the date and the author -->
-        <p id="postBody"></p><br /><br />
-        <button id="deleteFromViewButton">Delete Blog</button>
+        <p id="postMeta"></p>
+        <p id="postBody"></p>
+        <hr />
 
-        <h3>Read More Blogs</h3>
+        <h3>More blogs</h3>
         <div id="relatedPosts"></div>
     </div>
 
-    <div id="addPostView" style="display:none;">
-        <button id="cancelAddButton">Back to all blogs</button><br />
+    <div id="addPostView" style="display:none">
+        <button id="cancelAddButton">Back to blogs</button>
 
-        <h2>Add a new Blog</h2>
+        <h2>Write a blog</h2>
 
-        <label for="titleInput">Title</label> <br />
-        <input type="text" id="titleInput" /> <br /><br />
+        <label for="titleInput">Title</label>
+        <input type="text" id="titleInput" />
 
-        <label for="authorInput">Author</label> <br />
-        <input type="text" id="authorInput" /> <br /><br />
+        <label for="authorInput">Author</label>
+        <input type="text" id="authorInput" />
 
-        <label for="bodyInput">Body</label> <br />
-        <textarea id="bodyInput" rows="6" cols="40"></textarea> <br /><br />
+        <label for="bodyInput">Body</label>
+        <textarea id="bodyInput" rows="8"></textarea>
 
-        <button id="submitPostButton">Publish Blog</button>
+        <button id="submitPostButton">Publish blog</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

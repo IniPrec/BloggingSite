@@ -40,10 +40,7 @@ function renderPosts(keyword) {
         container.innerHTML += "<h2 data-postid=" + p.id + ">" + p.title + "</h2>";
         container.innerHTML += "<p>" + p.date + " - " + p.author + "</p>";
         container.innerHTML += "<p>" + preview + "...</p>";
-        container.innerHTML += "<div class='postActions'>";
         container.innerHTML += "<button data-postid=" + p.id + " class='readMoreBtn'>Read More</button>";
-        container.innerHTML += "<button data-postid=" + p.id + " class='deleteBtn'>Delete</button>";
-        container.innerHTML += "</div>";
         container.innerHTML += "<hr>"; // a horizontal line to separate posts
     }
 }
@@ -64,13 +61,16 @@ function viewPost(id) {
 
     var relatedContainer = document.getElementById("relatedPosts");
     relatedContainer.innerHTML = "";
-    var count = 0;
 
-    for (var i = 0; i < posts.length; i++) {
-        if (posts[i].id != id && count < 3) {
-            relatedContainer.innerHTML += "<p data-postid=" + posts[i].id + " class='relatedPostLink'>" + posts[i].title + "</p>";
-            count++;
-        }
+    var otherPosts = posts.filter(function (p) {
+        return p.id != id;
+    });
+
+    var shuffled = shuffleArray(otherPosts);
+
+    for (var i = 0; i < shuffled.Length && i < 3; i++) 
+    {
+        relatedContainer.innerHTML += "<p data-postid=" + shuffled[i].id + " class='relatedPostLink'>" + shuffled[i].title + "</p>";
     }
 
     document.getElementById("postList").style.display = "none";
@@ -79,31 +79,62 @@ function viewPost(id) {
     document.getElementById("searchInput").style.display = "block";
 }
 
-function deletePost(id) {
-    posts = posts.filter(function (post) {
-        return post.id != id;
+function shuffleArray(arr) {
+    var shuffled = arr.slice();
+
+    for (var i = shuffled.length - 1; i > 0; i--) 
+    {
+        var randomIndex = Math.floor(Math.random() * (i + 1));
+        var temporary = shuffled[i];
+        shuffled[i] = shuffled[randomIndex];
+        shuffled[randomIndex] = temporary;
+    }
+
+    return shuffled;
+}
+
+function showSearchResults(keyword) {
+    var resultsContainer = document.getElementById("searchResults");
+
+    if (keyword === "") {
+        resultsContainer.style.display = "none";
+        resultsContainer.innerHTML = "";
+        return;
+    }
+
+    var matches = posts.filter(function (p) {
+        var text = (p.title + " " + p.author).toLowerCase();
+        return text.indexOf(keyword.toLowerCase()) !== -1;
     });
 
-    savePosts();
-    renderPosts();
+    resultsContainer.innerHTML = "";
+
+    for (var i = 0; i < matches.length; i++)
+    {
+        resultsContainer.innerHTML += "<p data-postid=" + matches[i].id + " class='searchResultItem'>" + matches[i].title + "</p>";
+    }
+
+    resultsContainer.style.display = matches.length > 0 ? "block" : "none";
 }
 
 document.getElementById("searchInput").addEventListener("input", function () {
-    renderPosts(this.value);
+    showSearchResults(this.value);
 });
 
+document.getElementById("searchResults").addEventListener("click", function (event) {
+    if (event.target.classList.contains(searchResultItem)) 
+    {
+        var clickedId = event.target.getAttribute("data-postid");
+        document.getElementById("searchResults").style.display = "none";
+        document.getElementById("searchInput").value = "";
+        viewPost(clickedId);
+    }
+});
 
 document.getElementById("postList").addEventListener("click", function (event) {
     if (event.target.tagName === "H2" || event.target.classList.contains("readMoreBtn")) {
         var clickedId = event.target.getAttribute("data-postid");
         viewPost(clickedId);
-    }
-
-    if (event.target.classList.contains("deleteBtn")) {
-        var clickedId = event.target.getAttribute("data-postid");
-        if (confirm("Are you sure you want to delete this post?")) {
-            deletePost(clickedId);
-        }
     }
 });
 
@@ -144,7 +175,8 @@ document.getElementById("submitPostButton").addEventListener("click", function (
         return;
     }
 
-    posts.push(createPost(title, body, author));
+    var newPost = createPost(title, body, author);
+    posts.push(newPost);
     savePosts();
 
     document.getElementById("titleInput").value = "";
@@ -154,18 +186,8 @@ document.getElementById("submitPostButton").addEventListener("click", function (
     renderPosts();
 
     document.getElementById("addPostView").style.display = "none";
-    document.getElementById("postList").style.display = "block";
-    document.getElementById("addPostButton").style.display = "block";
-});
 
-document.getElementById("deleteFromViewButton").addEventListener("click", function () {
-    var currentId = document.getElementById("postTitle").getAttribute("data-postid");
-    if (confirm("Are you sure you want to delete this post?")) {
-        deletePost(currentId);
-        document.getElementById("postView").style.display = "none";
-        document.getElementById("postList").style.display = "block";
-        document.getElementById("addPostButton").style.display = "block";
-    }
+    viewPost(newPost.id);
 });
 
 loadPosts();
