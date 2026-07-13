@@ -39,6 +39,31 @@ button:hover {
     background-color: #555;
 }
 
+.readMoreBtn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 9px;
+    margin-top: 7px;
+}
+
+.deleteBtn {
+    background-color: #ff0000;
+    padding: 6px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 9px;
+    margin-top: 7px;
+}
+
+.postActions {
+    display: flex;
+    justify-content: space-between;
+}
+
 input[type="text"], textarea {
     width: 100%;
     padding: 8px;
@@ -51,4 +76,17 @@ input[type="text"], textarea {
 
 label {
     font-weight: bold;
+}
+
+#relatedPosts p {
+    cursor: pointer;
+    padding: 8px;
+    background-color: #eee;
+    border-radius: 4px;
+    margin: 6px;
+    transition: background-color 0.2s;
+}
+
+#relatedPosts p:hover {
+    background-color: #ddd;
 }
